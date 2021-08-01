@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ToDoList from './ToDoList';
 import ToDoNav from './ToDoNav';
 import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import AddTask from './AddTask';
+import initialData from './../initialData';
 
 class App extends Component
 {
@@ -16,7 +17,7 @@ class App extends Component
 							<Redirect to="/home" />
 						</Route>
 						<Route exact path="/add-task" component={AddTask} />
-						<Route path="/home/:filter?" component={ToDoList} />
+						<Route exact path="/home/:filter?" render={(props) => <ToDoList {...props} tasks={initialData} />} />
 					</Switch>
 					<ToDoNav />
 				</BrowserRouter>

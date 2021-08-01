@@ -3,14 +3,37 @@ import ToDoItem from './ToDoItem';
 
 class ToDoContent extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			tasks : []
+		}
+	}
+
+	static getDerivedStateFromProps(nextProps, prevState)
+	{
+		return {
+			tasks : nextProps.tasks
+		}
+	}
+
 	render()
 	{
 		return (
 			<ul className="list-group m-3">
-				<ToDoItem taskName="Ranger la vaisselle" />
-				<ToDoItem taskName="Répondre appel d'offres" />
-				<ToDoItem taskName="Signer contrat" />
-				<ToDoItem taskName="Ranger la salon" />
+				{
+					this.state.tasks.map(
+						(task, index) => {
+							return (
+								<ToDoItem 
+									key= { task.id }
+									task= { task }
+								/>
+							);
+						}
+					)
+				}
 			</ul>
 		);
 	}
