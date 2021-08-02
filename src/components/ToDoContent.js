@@ -3,23 +3,20 @@ import ToDoItem from './ToDoItem';
 
 class ToDoContent extends Component
 {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
 		this.state = {
 			tasks : []
 		}
 	}
 
-	static getDerivedStateFromProps(nextProps, prevState)
-	{
+	static getDerivedStateFromProps(nextProps, prevState) {
 		return {
 			tasks : nextProps.tasks
 		}
 	}
 
-	render()
-	{
+	render() {
 		return (
 			<ul className="list-group m-3">
 				{
@@ -27,8 +24,9 @@ class ToDoContent extends Component
 						(task, index) => {
 							return (
 								<ToDoItem 
-									key= { task.id }
-									task= { task }
+									key = { task.id }
+									task = { task }
+									onToggleCompleted = { this.props.onToggleCompleted }
 								/>
 							);
 						}

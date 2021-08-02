@@ -4,8 +4,7 @@ import ToDoContent from './ToDoContent';
 
 class ToDoList extends Component
 {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
 
 		this.state = {
@@ -14,8 +13,7 @@ class ToDoList extends Component
 		};
 	}
 
-	static getDerivedStateFromProps(nextProps, prevState)
-	{
+	static getDerivedStateFromProps(nextProps, prevState) {
 		if ( (nextProps.match.params.filter === undefined && prevState.filter !== 'none') || (nextProps.match.params.filter !== undefined && prevState.filter !== nextProps.match.params.filter) ) {
 			
 			let filter = (nextProps.match.params.filter !== undefined) ? nextProps.match.params.filter : 'none';
@@ -26,12 +24,16 @@ class ToDoList extends Component
 				filter : filter,
 				updated : true
 			}
+		} else if ( nextProps.tasks !== prevState.tasks ) {
+			return {
+				...prevState,
+				tasks : nextProps.tasks
+			}
 		}
 		return null;
 	}
 
-	static getFilteredTasks(filter, tasks)
-	{
+	static getFilteredTasks(filter, tasks) {
 		{
 			let filteredTasks;
 			switch(filter){
@@ -49,13 +51,11 @@ class ToDoList extends Component
 		}
 	}
 
-	render()
-	{
-		console.log('ToDoList render');
+	render() {
 		return (
 			<Fragment>
 				<ToDoHeader />
-				<ToDoContent tasks={ this.state.tasks } />
+				<ToDoContent tasks={ this.state.tasks } onToggleCompleted={ this.props.onToggleCompleted } />
 			</Fragment>
 		);
 	}
