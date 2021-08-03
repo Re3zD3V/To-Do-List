@@ -5,14 +5,30 @@ import { BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import AddTask from './AddTask';
 import initialData from './../initialData';
 import uniqid from 'uniqid';
+import Fetching from './Fetching';
+import { FaSpinner } from 'react-icons/fa';
 
 class App extends Component
 {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tasks : initialData
+			tasks : [],
+			fetching: true
 		}
+	}
+
+	componentDidMount() {
+		let delay = Math.floor(Math.random() * 5000);
+
+		setTimeout(() => {
+			this.setState(
+				{
+					tasks : initialData,
+					fetching : false
+				}
+			);
+		}, delay);
 	}
 
 	onToggleCompleted = taskId => {
@@ -53,6 +69,9 @@ class App extends Component
 	render() {
 		return (
 			<section id="todo">
+				{	
+					this.state.fetching && <Fetching />
+				}
 				<BrowserRouter>
 					<Switch>
 						<Route exact path="/">
